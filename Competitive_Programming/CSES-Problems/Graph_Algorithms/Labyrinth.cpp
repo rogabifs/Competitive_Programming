@@ -12,7 +12,6 @@ bool isValid(int raw, int col, int n, int m,vector<vector<char> >& grid) {
 
 vector<char> shortestPath(int raw, int col, int n, int m, vector<vector<char> >& grid, vector<pair<int, int> >& directions, map<pair<int, int>, char>& directionsDic) {
     vector<vector<int> > distance(n, vector<int>(m, INF));
-    vector<vector<bool> > processed(n, vector<bool>(m, false));
     vector<vector<pair<int, int> > > parent(n, vector<pair<int, int> >(m, make_pair(-1,-1)));
     queue<pair<int,int> > q;
     bool hasB = false;
@@ -34,7 +33,7 @@ vector<char> shortestPath(int raw, int col, int n, int m, vector<vector<char> >&
         for(auto [dy, dx] : directions) {
             int newCol = pos.second + dx, newRaw = pos.first + dy;
             if(isValid(newRaw, newCol,n,m,grid) && distance[newRaw][newCol] == INF) {
-                distance[newRaw][newCol] = distance[raw][col] + 1;
+                distance[newRaw][newCol] = distance[pos.first][pos.second] + 1;
                 parent[newRaw][newCol] = make_pair(pos.first, pos.second);
                 q.push(make_pair(newRaw, newCol));
             } 
